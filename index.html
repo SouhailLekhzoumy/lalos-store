@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LALOS — a considered edit of fashion, technology, accessories and fragrance.">
+  <meta name="theme-color" content="#171613">
+  <title>LALOS — The modern lifestyle edit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="announcement">THE LALOS EDIT — A MORE CONSIDERED EVERYDAY</div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="LALOS home">
+      <span class="brand-mark">L</span><span>LALOS</span>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#collections">Collections</a><a href="#featured">Discover</a><a href="#about">Our point of view</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="header-cta" href="#featured">Explore the edit <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A CURATED LIFESTYLE DESTINATION</p>
+        <h1>Find your<br><em>everyday</em> icon.</h1>
+        <p class="hero-text">A fresh perspective on what you wear, carry, use and experience. Discover the LALOS edit.</p>
+        <div class="hero-actions"><a class="button button-dark" href="#collections">Explore collections <span>↗</span></a><a class="text-link" href="#about">Discover LALOS</a></div>
+        <div class="hero-note"><span class="note-line"></span><span>STYLE · OBJECTS · EVERYDAY</span></div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image"></div>
+        <div class="hero-stamp"><span>THE</span><strong>LALOS</strong><span>EDIT Nº 01</span></div>
+        <div class="hero-caption">LESS, BUT<br>BETTER CHOSEN.</div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Store categories"><div>STYLE WITH INTENTION <b>✳</b> OBJECTS THAT INSPIRE <b>✳</b> EVERYDAY, ELEVATED <b>✳</b> STYLE WITH INTENTION <b>✳</b></div></section>
+
+    <section class="section collection-section" id="collections">
+      <div class="section-heading"><div><p class="eyebrow">EXPLORE THE WORLD OF LALOS</p><h2>Made for your<br><em>kind of everyday.</em></h2></div><p class="section-intro">Different interests. One point of view. Explore a considered mix of essentials, statements and useful discoveries.</p></div>
+      <div class="category-grid">
+        <a class="category-card category-fashion" href="#featured" data-category-link="Fashion"><span class="category-number">01 / STYLE</span><span class="category-title">Fashion</span><span class="category-arrow">↗</span></a>
+        <a class="category-card category-tech" href="#featured" data-category-link="Gadgets"><span class="category-number">02 / INNOVATION</span><span class="category-title">Gadgets</span><span class="category-arrow">↗</span></a>
+        <a class="category-card category-accessories" href="#featured" data-category-link="Accessories"><span class="category-number">03 / DETAILS</span><span class="category-title">Accessories</span><span class="category-arrow">↗</span></a>
+        <a class="category-card category-fragrance" href="#featured" data-category-link="Fragrance"><span class="category-number">04 / SENSORY</span><span class="category-title">Fragrance</span><span class="category-arrow">↗</span></a>
+      </div>
+    </section>
+
+    <section class="feature-band" id="about">
+      <div class="feature-image"></div><div class="feature-copy"><p class="eyebrow">THE LALOS POINT OF VIEW</p><h2>Good things.<br><em>Good energy.</em></h2><p>We believe the everyday deserves a little more thought. LALOS brings together style, useful objects and personal details in one evolving destination.</p><a class="text-link light-link" href="#contact">Get to know us ↗</a></div>
+    </section>
+
+    <section class="section products-section" id="featured">
+      <div class="section-heading product-heading"><div><p class="eyebrow">THE FIRST EDIT</p><h2>Worth a closer<br><em>look.</em></h2></div><div class="filters" role="group" aria-label="Filter products"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Fashion">Fashion</button><button class="filter" data-filter="Gadgets">Gadgets</button><button class="filter" data-filter="Accessories">Accessories</button><button class="filter" data-filter="Fragrance">Fragrance</button></div></div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+      <p class="catalogue-note">A preview of the LALOS catalogue. Product availability and details will be confirmed before orders open.</p>
+    </section>
+
+    <section class="newsletter">
+      <div><p class="eyebrow">A NOTE FROM LALOS</p><h2>Good taste.<br><em>In your inbox.</em></h2></div>
+      <form class="newsletter-form" id="newsletter-form"><label for="email">Get updates on new finds and the next edit.</label><div class="email-row"><input id="email" type="email" placeholder="Your email address" required><button type="submit" aria-label="Submit email">→</button></div><p id="form-message" class="form-message">This preview form does not store email addresses yet.</p></form>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-top"><a class="brand footer-brand" href="#"><span class="brand-mark">L</span><span>LALOS</span></a><p>A considered edit for<br>the everyday.</p><a class="footer-contact" href="mailto:hello@lalos.example">Say hello ↗</a></div>
+    <div class="footer-bottom"><span>© <span id="year"></span> LALOS. All rights reserved.</span><span>INDEPENDENTLY CURATED · MADE TO DISCOVER</span><a href="mailto:hello@lalos.example">CONTACT</a></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
