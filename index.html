@@ -57,14 +57,26 @@
     </section>
 
     <section class="section products-section" id="featured">
-      <div class="section-heading product-heading"><div><p class="eyebrow">THE FIRST EDIT</p><h2>Worth a closer<br><em>look.</em></h2></div><div class="filters" role="group" aria-label="Filter products"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Fashion">Fashion</button><button class="filter" data-filter="Gadgets">Gadgets</button><button class="filter" data-filter="Accessories">Accessories</button><button class="filter" data-filter="Fragrance">Fragrance</button></div></div>
+      <div class="section-heading product-heading"><div><p class="eyebrow">THE FIRST EDIT</p><h2>Worth a closer<br><em>look.</em></h2></div><div class="catalogue-tools">
+          <div class="filters" role="group" aria-label="Filter products">
+            <button class="filter active" data-filter="All">All</button>
+            <button class="filter" data-filter="Fashion">Fashion</button>
+            <button class="filter" data-filter="Gadgets">Gadgets</button>
+            <button class="filter" data-filter="Accessories">Accessories</button>
+            <button class="filter" data-filter="Fragrance">Fragrance</button>
+          </div>
+          <div class="catalogue-controls">
+            <label class="search-box"><span class="sr-only">Search products</span><input id="product-search" type="search" placeholder="Search the edit…"></label>
+            <label class="sort-box"><span class="sr-only">Sort products</span><select id="product-sort"><option value="featured">Featured</option><option value="low-high">Price: low to high</option><option value="high-low">Price: high to low</option><option value="az">Name: A to Z</option></select></label>
+          </div>
+        </div></div>
       <div class="product-grid" id="product-grid" aria-live="polite"></div>
-      <p class="catalogue-note">A preview of the LALOS catalogue. Product availability and details will be confirmed before orders open.</p>
+      <p class="catalogue-note">An illustrative first edit. Sample products and prices are for design purposes and are not confirmed stock or offers.</p>
     </section>
 
     <section class="newsletter">
       <div><p class="eyebrow">A NOTE FROM LALOS</p><h2>Good taste.<br><em>In your inbox.</em></h2></div>
-      <form class="newsletter-form" id="newsletter-form"><label for="email">Get updates on new finds and the next edit.</label><div class="email-row"><input id="email" type="email" placeholder="Your email address" required><button type="submit" aria-label="Submit email">→</button></div><p id="form-message" class="form-message">This preview form does not store email addresses yet.</p></form>
+      <form class="newsletter-form" id="newsletter-form"><label for="email">Get updates on new finds and the next edit.</label><div class="email-row"><input id="email" type="email" placeholder="Your email address" required><button type="submit" aria-label="Submit email">→</button></div><p id="form-message" class="form-message">Newsletter sign-up is a visual preview and is not connected yet.</p></form>
     </section>
   </main>
 
