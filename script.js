@@ -43,7 +43,7 @@ function renderProducts() {
         <div><p class="product-category">${p.category}</p><h3>${p.name}</h3><p>${p.detail}</p></div>
         <span class="product-price">${euro(p.price)}</span>
       </div>
-      <button class="inquire-link" type="button" data-enquire-id="${p.id}">ENQUIRE ↗</button>
+      <button class="add-to-bag" type="button" data-add-id="${p.id}">ADD TO BAG +</button>
     </article>`).join("") : '<p class="empty-state">No matches just yet. Try another search or category.</p>';
 }
 
@@ -67,16 +67,34 @@ document.querySelectorAll("[data-category-link]").forEach(link =>
 searchInput?.addEventListener("input", renderProducts);
 sortSelect?.addEventListener("change", renderProducts);
 
+const CART_KEY = "lalos-demo-cart-v1";
+let cart = loadCart();
+function loadCart(){ try { return JSON.parse(localStorage.getItem(CART_KEY) || "{}"); } catch { return {}; } }
+function saveCart(){ try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {} }
+function addToCart(product){ cart[product.id]=(cart[product.id]||0)+1; saveCart(); renderCart(); openCart(); }
+function changeQty(id,delta){ cart[id]=(cart[id]||0)+delta; if(cart[id]<=0) delete cart[id]; saveCart(); renderCart(); }
+function cartEntries(){ return Object.entries(cart).map(([id,qty])=>({product:products.find(p=>p.id===id),qty})).filter(x=>x.product); }
+function renderCart(){
+  const entries=cartEntries(), count=entries.reduce((n,x)=>n+x.qty,0), subtotal=entries.reduce((n,x)=>n+x.product.price*x.qty,0);
+  document.querySelector("#cart-count").textContent=count;
+  document.querySelector("#drawer-count").textContent=`(${count})`;
+  document.querySelector("#cart-subtotal").textContent=euro(subtotal);
+  document.querySelector("#cart-items").innerHTML=entries.length?entries.map(({product:p,qty})=>`<div class="cart-line"><img src="${p.image}" alt=""><div class="cart-line-info"><strong>${p.name}</strong><span>${euro(p.price)}</span><div class="qty-control"><button type="button" data-qty="-1" data-id="${p.id}" aria-label="Decrease quantity">−</button><span>${qty}</span><button type="button" data-qty="1" data-id="${p.id}" aria-label="Increase quantity">+</button><button type="button" class="remove-item" data-remove="${p.id}">Remove</button></div></div></div>`).join(""):'<p class="cart-empty">Your bag is waiting for something considered.</p>';
+}
+function openCart(){ document.querySelector("#cart-overlay").hidden=false; document.querySelector("#cart-drawer").classList.add("is-open"); document.querySelector("#cart-drawer").setAttribute("aria-hidden","false"); document.body.classList.add("cart-open"); }
+function closeCart(){ document.querySelector("#cart-overlay").hidden=true; document.querySelector("#cart-drawer").classList.remove("is-open"); document.querySelector("#cart-drawer").setAttribute("aria-hidden","true"); document.body.classList.remove("cart-open"); }
+document.querySelector("#cart-trigger").addEventListener("click",openCart);
+document.querySelector("#cart-close").addEventListener("click",closeCart);
+document.querySelector("#cart-overlay").addEventListener("click",closeCart);
+document.querySelector("#cart-items").addEventListener("click",e=>{ const q=e.target.closest("[data-qty]"); const rm=e.target.closest("[data-remove]"); if(q) changeQty(q.dataset.id,Number(q.dataset.qty)); if(rm){delete cart[rm.dataset.remove];saveCart();renderCart();} });
+document.querySelector("#checkout-preview").addEventListener("click",()=>{document.querySelector("#checkout-message").textContent="Checkout preview only: no order has been placed and no payment or customer details have been collected. We'll activate checkout after the business and payment setup is complete.";});
 grid.addEventListener("click", event => {
-  const enquire = event.target.closest("[data-enquire-id]");
-  const open = event.target.closest("[data-product-id]");
-  const product = products.find(p => p.id === (enquire?.dataset.enquireId || open?.dataset.productId));
-  if (!product) return;
-  const subject = encodeURIComponent(`LALOS product enquiry: ${product.name}`);
-  const body = encodeURIComponent(`Hello LALOS,\n\nI'm interested in ${product.name} (${euro(product.price)}).\nCould you please share more information?\n\nThank you.`);
-  if (enquire) window.location.href = `mailto:lekhzoumysouhail1@gmail.com?subject=${subject}&body=${body}`;
-  else showProductDetails(product);
+  const add=event.target.closest("[data-add-id]"); const open=event.target.closest("[data-product-id]");
+  if(add){const p=products.find(x=>x.id===add.dataset.addId);if(p)addToCart(p);return;}
+  const product=products.find(p=>p.id===open?.dataset.productId); if(product) showProductDetails(product);
 });
+document.addEventListener("click",e=>{const add=e.target.closest("[data-modal-add]");if(add){const p=products.find(x=>x.id===add.dataset.modalAdd);if(p){document.querySelector("#product-dialog")?.close();addToCart(p);}}});
+renderCart();
 
 function showProductDetails(product) {
   let dialog = document.querySelector("#product-dialog");
@@ -99,7 +117,7 @@ function showProductDetails(product) {
         <p class="dialog-description">${product.detail}</p>
         <strong>${euro(product.price)}</strong>
         <p class="sample-disclaimer">Illustrative sample listing. Availability and final pricing are not confirmed.</p>
-        <a class="button button-dark" href="mailto:lekhzoumysouhail1@gmail.com?subject=${encodeURIComponent("LALOS product enquiry: "+product.name)}">Enquire about this item ↗</a>
+        <button class="button button-dark" type="button" data-modal-add="${product.id}">Add to bag +</button>
       </div>
     </div>`;
   dialog.querySelector(".dialog-close").addEventListener("click",()=>dialog.close());

@@ -21,7 +21,7 @@
     <nav class="main-nav" aria-label="Main navigation">
       <a href="#collections">Collections</a><a href="#featured">Discover</a><a href="#about">Our story</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
-    <a class="header-cta" href="#featured">Explore the edit <span>↗</span></a>
+    <div class="header-actions"><button class="cart-trigger" id="cart-trigger" type="button" aria-label="Open shopping bag">Bag <span id="cart-count">0</span></button><a class="header-cta" href="#featured">Explore the edit <span>↗</span></a></div>
   </header>
 
   <main>
@@ -120,6 +120,12 @@
     <div class="footer-top"><a class="brand footer-brand" href="#"><img src="lalos-logo.png" alt="LALOS" class="brand-logo"></a><p>A considered edit for<br>the everyday.</p><div class="footer-links"><a href="#our-story">ABOUT</a><a href="#faq">FAQ</a><a href="#customer-care">CUSTOMER CARE</a><a href="mailto:lekhzoumysouhail1@gmail.com">CONTACT</a></div></div>
     <div class="footer-bottom"><span>© <span id="year"></span> LALOS. All rights reserved.</span><span>INDEPENDENTLY CURATED · MADE TO DISCOVER</span><a href="mailto:lekhzoumysouhail1@gmail.com">CONTACT</a></div>
   </footer>
-  <script src="script.js"></script>
+  <div class="cart-overlay" id="cart-overlay" hidden></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag" aria-hidden="true">
+  <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Your bag <span id="drawer-count">(0)</span></h2></div><button id="cart-close" class="cart-close" type="button" aria-label="Close bag">×</button></div>
+  <div id="cart-items" class="cart-items"><p class="cart-empty">Your bag is waiting for something considered.</p></div>
+  <div class="cart-foot"><div class="cart-total"><span>Subtotal</span><strong id="cart-subtotal">€0</strong></div><p class="cart-disclaimer">Sample catalogue only. Prices and availability are illustrative. Checkout and payment are not active.</p><button id="checkout-preview" class="button button-dark checkout-button" type="button">Preview checkout <span>↗</span></button><p id="checkout-message" class="checkout-message" aria-live="polite"></p></div>
+</aside>
+<script src="script.js"></script>
 </body>
 </html>
