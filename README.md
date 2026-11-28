@@ -50,3 +50,24 @@ Use Cloudflare Pages for this static catalogue. GitHub Pages' terms say it is no
 2. Add genuine product photography.
 3. Connect a proper enquiry form service if you need form submissions.
 4. When ready, add a compliant ecommerce backend and payment provider. Do not collect card details directly in this static site.
+
+
+## Supabase connection (static HTML website)
+
+This project remains a static HTML/CSS/JavaScript site. It does not need Next.js.
+
+1. Open `supabase-config.js`.
+2. Replace `PASTE_YOUR_SUPABASE_PROJECT_URL_HERE` with your Supabase Project URL.
+3. Replace `PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE` with the Supabase **Publishable key** (or legacy `anon` key).
+4. Save the file and publish the updated project through your existing GitHub → Cloudflare Pages workflow.
+
+Only use the publishable/anon key in this browser configuration. Never put a `sb_secret_...` or `service_role` key in any website file.
+
+The site will try to read active rows from `public.products`. Its Row Level Security policy must allow public `SELECT` of active products. If the table is empty, the site continues to show the sample catalogue. If the connection fails, the site also falls back to the sample catalogue.
+
+### Important current limitations
+
+- This update only connects the public product catalogue for read access.
+- It does not submit customer orders, store customer details, provide an admin panel, or process payments.
+- Do not accept real orders or payments yet. Those features need a server-side order function, validation of prices and quantities, and carefully designed security policies first.
+- The example products and prices remain illustrative, not confirmed stock or offers.

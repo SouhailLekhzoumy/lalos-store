@@ -1,5 +1,5 @@
 // LALOS starter catalogue — illustrative sample products, not confirmed stock.
-const products = [
+let products = [
   {id:"fashion-01",name:"The Essential Linen Shirt",category:"Fashion",detail:"An airy everyday layer in a relaxed silhouette.",price:39,tag:"THE EVERYDAY",image:"https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85"},
   {id:"fashion-02",name:"The Tailored Trouser",category:"Fashion",detail:"A clean, versatile shape made for easy styling.",price:55,tag:"NEW CLASSIC",image:"https://images.unsplash.com/photo-1506617420156-8e4536971650?auto=format&fit=crop&w=900&q=85"},
   {id:"fashion-03",name:"The Canvas Tote",category:"Fashion",detail:"A simple carryall for the everyday essentials.",price:29,tag:"DAILY CARRY",image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=85"},
@@ -140,3 +140,53 @@ document.querySelector("#newsletter-form")?.addEventListener("submit", e => {
 });
 const year = document.querySelector("#year");
 if (year) year.textContent = new Date().getFullYear();
+
+
+// Supabase connection: read active catalogue entries when configured.
+// The local sample catalogue remains as a fallback until real products are added.
+async function loadLalosProductsFromSupabase() {
+  const config = window.LALOS_SUPABASE_CONFIG;
+  const isConfigured = config &&
+    config.url && !config.url.includes("PASTE_YOUR_") &&
+    config.publishableKey && !config.publishableKey.includes("PASTE_YOUR_");
+
+  if (!isConfigured || !window.supabase?.createClient) {
+    console.info("LALOS: Supabase is not configured yet; using the sample catalogue.");
+    return;
+  }
+
+  try {
+    const client = window.supabase.createClient(config.url, config.publishableKey);
+    const { data, error } = await client
+      .from("products")
+      .select("id, name, category, description, price, image_url, active")
+      .eq("active", true)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    // Keep the sample catalogue visible until real catalogue rows exist.
+    if (!Array.isArray(data) || data.length === 0) {
+      console.info("LALOS: Supabase is connected, but no active products are published yet. Showing sample products.");
+      return;
+    }
+
+    products = data.map((item, index) => ({
+      id: String(item.id),
+      name: item.name,
+      category: item.category,
+      detail: item.description || "",
+      price: Number(item.price),
+      tag: "LALOS EDIT",
+      image: item.image_url || "",
+    }));
+
+    renderProducts();
+    renderCart();
+    console.info(`LALOS: Loaded ${products.length} active products from Supabase.`);
+  } catch (error) {
+    console.error("LALOS: Could not load products from Supabase. Showing sample catalogue.", error);
+  }
+}
+
+loadLalosProductsFromSupabase();
